@@ -34,6 +34,7 @@ namespace CodingTracker.JJHH17
                 {
                     case MenuOptions.Add:
                         AnsiConsole.MarkupLine("[green]You chose to add a new entry![/]");
+                        AddEntry();
                         break;
 
                     case MenuOptions.Exit:
@@ -42,6 +43,17 @@ namespace CodingTracker.JJHH17
                         break;
                 }
             }
+        }
+
+        // Used to prompt user to add entries
+        public static void AddEntry()
+        {
+            string startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30):");
+            string endTime = AnsiConsole.Ask<string>("Enter the [yellow]end time[/] (e.g., 2023-10-01 16:30):");
+
+            AnsiConsole.MarkupLine($"[green]New entry added:[/] Start Time: {startTime}, End Time: {endTime}");
+            var newEntry = new CodingSession(startTime, endTime);
+            Database.AddEntry(startTime, endTime);
         }
     }
 }
