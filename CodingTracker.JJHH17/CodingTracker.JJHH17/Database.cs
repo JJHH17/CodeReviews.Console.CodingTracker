@@ -4,6 +4,7 @@ using System.IO;
 using System.Configuration;
 using System.Data.SQLite;
 
+
 // TODO - Add Dapper installation to README
 // TODO - Add SQLITE installation to README
 namespace CodingTracker.JJHH17
@@ -47,6 +48,19 @@ namespace CodingTracker.JJHH17
                 connection.Execute(tableCreation);
                 Console.WriteLine("Table created successfully.");
             }
+        }
+
+        public static void AddEntry(string startTime, string endTime)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var sql = $"INSERT INTO {tableName} (StartTime, EndTime) VALUES (@StartTime, @EndTime);";
+
+                var newEntry = new CodingSession(startTime, endTime);
+                var affectedRows = connection.Execute(sql, newEntry);
+            }
+            Console.WriteLine("Entry added successfully.");
         }
     }
 }
