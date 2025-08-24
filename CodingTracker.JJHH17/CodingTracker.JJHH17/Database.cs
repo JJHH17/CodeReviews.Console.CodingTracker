@@ -62,5 +62,16 @@ namespace CodingTracker.JJHH17
             }
             Console.WriteLine("Entry added successfully.");
         }
+
+        public static List<CodingSession> ReturnAllEntries()
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var sql = $"SELECT * FROM {tableName};";
+                var entries = connection.Query<CodingSession>(sql).ToList();
+                return entries;
+            }
+        }
     }
 }
