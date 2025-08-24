@@ -8,13 +8,14 @@ namespace CodingTracker.JJHH17
 {
     internal class CodingSession
     {
-        private string startTime;
-        private string endTime;
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+
 
         public CodingSession(string startTime, string endTime)
         {
-            this.startTime = startTime;
-            this.endTime = endTime;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
         }
 
         // To add... calculate duration
