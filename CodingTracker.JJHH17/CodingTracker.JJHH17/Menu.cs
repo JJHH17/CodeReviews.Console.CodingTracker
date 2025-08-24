@@ -14,6 +14,7 @@ namespace CodingTracker.JJHH17
         enum MenuOptions
         {
             Add,
+            ViewAll,
             Exit,
         }
 
@@ -37,6 +38,11 @@ namespace CodingTracker.JJHH17
                         AddEntry();
                         break;
 
+                    case MenuOptions.ViewAll:
+                        AnsiConsole.MarkupLine("[green]You chose to view all entries![/]");
+                        ViewEntries();
+                        break;
+
                     case MenuOptions.Exit:
                         AnsiConsole.MarkupLine("[red]Exiting the application. Goodbye![/]");
                         active = false;
@@ -52,8 +58,28 @@ namespace CodingTracker.JJHH17
             string endTime = AnsiConsole.Ask<string>("Enter the [yellow]end time[/] (e.g., 2023-10-01 16:30):");
 
             AnsiConsole.MarkupLine($"[green]New entry added:[/] Start Time: {startTime}, End Time: {endTime}");
+            Console.ReadKey();
             var newEntry = new CodingSession(startTime, endTime);
             Database.AddEntry(startTime, endTime);
+
+        }
+
+        // Method to view all entries
+        public static void ViewEntries()
+        {
+            var table = new Table();
+            table.AddColumn("[yellow]Start Time[/]");
+            table.AddColumn("[yellow]End Time[/]");
+
+            List<CodingSession> entries = Database.ReturnAllEntries();
+            foreach (var entry in entries)
+            {
+                table.AddRow(entry.StartTime, entry.EndTime);
+            }
+
+            AnsiConsole.Write(table);
+
+            Console.ReadKey();
         }
     }
 }
