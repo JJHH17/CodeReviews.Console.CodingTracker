@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Database = CodingTracker.JJHH17.Database;
 
 namespace CodingTracker.JJHH17
 {
-    internal class CodingSession
+    public class CodingSession
     {
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-
 
         public CodingSession(string startTime, string endTime)
         {
