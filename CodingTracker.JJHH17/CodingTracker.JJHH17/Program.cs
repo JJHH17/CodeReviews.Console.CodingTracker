@@ -4,10 +4,6 @@ using System.IO;
 using Menu = CodingTracker.JJHH17.Menu;
 using Database = CodingTracker.JJHH17.Database;
 
-// Pulls from App.config
-// var dbConnection = ConfigurationManager.AppSettings.Get(0);
-// Console.WriteLine(dbConnection);
-
 namespace CodingTracker.JJHH17;
 
 public static class Program
