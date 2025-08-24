@@ -12,6 +12,11 @@ namespace CodingTracker.JJHH17
         public string StartTime { get; set; }
         public string EndTime { get; set; }
 
+        public CodingSession()
+        {
+
+        }
+
         public CodingSession(string startTime, string endTime)
         {
             this.StartTime = startTime;
