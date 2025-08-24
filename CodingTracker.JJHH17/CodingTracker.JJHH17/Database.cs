@@ -55,10 +55,10 @@ namespace CodingTracker.JJHH17
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                var sql = $"INSERT INTO {tableName} (StartTime, EndTime) VALUES (@StartTime, @EndTime);";
+                var sql = $"INSERT INTO {tableName} (startTime, endTime) VALUES (@StartTime, @EndTime);";
 
                 var newEntry = new CodingSession(startTime, endTime);
-                var affectedRows = connection.Execute(sql, newEntry);
+                var affectedRows = connection.Execute(sql, new { StartTime = newEntry.StartTime, EndTime = newEntry.EndTime });
             }
             Console.WriteLine("Entry added successfully.");
         }
