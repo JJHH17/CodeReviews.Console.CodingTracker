@@ -13,6 +13,8 @@ namespace CodingTracker.JJHH17
         // Imports database from config file
         private static readonly string dbPath = ConfigurationManager.AppSettings["databasePath"];
         private static readonly string tableName = ConfigurationManager.AppSettings["tableName"];
+        private static readonly string connectionString = $"Data Source={dbPath};";
+
 
         public static void CreateDatabase()
         {
@@ -31,7 +33,7 @@ namespace CodingTracker.JJHH17
         // Creates a table in the database (pulled from config file)
         private static void CreateTable()
         {
-            using (var connection = new SQLiteConnection(dbPath))
+            using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
