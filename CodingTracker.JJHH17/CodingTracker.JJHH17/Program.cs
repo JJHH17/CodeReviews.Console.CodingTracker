@@ -1,5 +1,14 @@
 ﻿using System.Configuration;
+using Spectre.Console;
 
-var dbConnection = ConfigurationManager.AppSettings.Get(0);
+// Pulls from App.config
+// var dbConnection = ConfigurationManager.AppSettings.Get(0);
+// Console.WriteLine(dbConnection);
 
-Console.WriteLine(dbConnection);
+public static class Program
+{
+    public static void Main()
+    {
+        AnsiConsole.MarkupLine("[yellow]Welcome to Code Tracker![/]");
+    }
+}
