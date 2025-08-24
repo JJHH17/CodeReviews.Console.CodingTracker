@@ -10,10 +10,11 @@ public static class Program
     {
     public static void Main()
     {
-        // AnsiConsole.MarkupLine("[yellow]Welcome to Code Tracker![/]");
-
-        // Menu.Show();
-
+        // Creates database and table if they do not exist
         Database.CreateDatabase();
+
+        AnsiConsole.MarkupLine("[yellow]Welcome to Code Tracker![/]");
+
+        Menu.Show();
     }
 }
