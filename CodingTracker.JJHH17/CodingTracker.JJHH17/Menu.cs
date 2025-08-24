@@ -8,14 +8,15 @@ using Spectre.Console;
 
 namespace CodingTracker.JJHH17
 {
-    enum MenuOptions
-    {
-        Add,
-        Exit,
-    }
-
     internal class Menu
     {
+
+        enum MenuOptions
+        {
+            Add,
+            Exit,
+        }
+
         public static void Show()
         {
             bool active = true;
