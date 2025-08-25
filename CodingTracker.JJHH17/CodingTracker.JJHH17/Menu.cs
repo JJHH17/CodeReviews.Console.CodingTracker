@@ -59,22 +59,22 @@ namespace CodingTracker.JJHH17
 
         public static void AddEntry()
         {
-            string startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30):");
+            string startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30 (time is optional)):");
             // Parsing to DateTime to ensure correct format (end time must be after start time)
             DateTime parsedStartTime;
             while (!DateTime.TryParse(startTime, out parsedStartTime))
             {
                 AnsiConsole.MarkupLine("[red]Invalid date format. Please try again.[/]");
-                startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30):");
+                startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30 (time is optional)):");
             }
 
-            string endTime = AnsiConsole.Ask<string>("Enter the [yellow]end time[/] (e.g., 2023-10-01 16:30):");
+            string endTime = AnsiConsole.Ask<string>("Enter the [yellow]end time[/] (e.g., 2023-10-01 16:30 (time is optional)):");
 
             DateTime parsedEndTime;
             while (!DateTime.TryParse(endTime, out parsedEndTime) || parsedEndTime <= parsedStartTime)
             {
                 AnsiConsole.MarkupLine("[red]Invalid date format or end time is before start time. Please try again.[/]");
-                endTime = AnsiConsole.Ask<string>("Enter the [yellow]end time[/] (e.g., 2023-10-01 16:30):");
+                endTime = AnsiConsole.Ask<string>("Enter the [yellow]end time[/] (e.g., 2023-10-01 16:30 (time is optional)):");
             }
 
             AnsiConsole.MarkupLine($"[green]New entry added:[/] Start Time: {startTime}, End Time: {endTime}");
