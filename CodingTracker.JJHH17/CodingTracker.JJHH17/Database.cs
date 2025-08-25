@@ -43,25 +43,25 @@ namespace CodingTracker.JJHH17
                     Id INTEGER PRIMARY KEY AUTOINCREMENT, 
                     StartTime TEXT NOT NULL,
                     EndTime TEXT NOT NULL,
-                    Duration INTEGER);";
+                    Duration TEXT);";
 
                 connection.Execute(tableCreation);
                 Console.WriteLine("Table created successfully.");
             }
         }
 
-        public static long AddEntry(string startTime, string endTime)
+        public static long AddEntry(string startTime, string endTime, string duration)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                var sql = $"INSERT INTO {tableName} (startTime, endTime) VALUES (@StartTime, @EndTime);" +
+                var sql = $"INSERT INTO {tableName} (startTime, endTime, duration) VALUES (@StartTime, @EndTime, @Duration);" +
                     $"SELECT last_insert_rowid();";
 
-                var newEntry = new CodingSession(startTime, endTime);
+                var newEntry = new CodingSession(startTime, endTime, duration);
                 long newId = connection.ExecuteScalar<long>(sql, new
                 {
-                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime });
+                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime, newEntry.Duration});
 
                 return newId; // This is used to return the entry ID (for deletion method if needed)
             }
