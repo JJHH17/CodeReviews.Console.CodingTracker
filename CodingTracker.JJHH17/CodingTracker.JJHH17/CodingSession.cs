@@ -33,12 +33,33 @@ namespace CodingTracker.JJHH17
         }
 
         // Calculate duration of session
-        public void CalculateDuration() // REVISIT at the end 
+        public void CalculateDuration() 
         {
             DateTime start = DateTime.Parse(StartTime);
             DateTime end = DateTime.Parse(EndTime);
-            TimeSpan duration = end - start;
-            this.Duration = duration.ToString();
+            
+            int years = end.Year - start.Year;
+            int months = end.Month - start.Month;
+            int days = end.Day - start.Day;
+
+            if (days < 0)
+            {
+                months--;
+                days += DateTime.DaysInMonth(start.Year, start.Month);
+            }
+
+            if (months < 0)
+            {
+                years--;
+                months += 12;
+            }
+
+            TimeSpan timeSpan = end - start;
+            int hours = timeSpan.Hours;
+            int minutes = timeSpan.Minutes;
+            int seconds = timeSpan.Seconds;
+
+            Duration = $"{years} years, {months} months, {days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
         }
     }
 }
