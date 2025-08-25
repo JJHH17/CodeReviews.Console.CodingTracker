@@ -40,7 +40,7 @@ namespace CodingTracker.JJHH17
 
                 // Creating table via Dapper
                 string tableCreation = @"CREATE TABLE IF NOT EXISTS CodeTracker (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT, 
                     StartTime TEXT NOT NULL,
                     EndTime TEXT NOT NULL,
                     Duration INTEGER);";
@@ -50,15 +50,20 @@ namespace CodingTracker.JJHH17
             }
         }
 
-        public static void AddEntry(string startTime, string endTime)
+        public static long AddEntry(string startTime, string endTime)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                var sql = $"INSERT INTO {tableName} (startTime, endTime) VALUES (@StartTime, @EndTime);";
+                var sql = $"INSERT INTO {tableName} (startTime, endTime) VALUES (@StartTime, @EndTime);" +
+                    $"SELECT last_insert_rowid();";
 
                 var newEntry = new CodingSession(startTime, endTime);
-                var affectedRows = connection.Execute(sql, new { StartTime = newEntry.StartTime, EndTime = newEntry.EndTime });
+                long newId = connection.ExecuteScalar<long>(sql, new
+                {
+                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime });
+
+                return newId; // This is used to return the entry ID (for deletion method if needed)
             }
         }
 
