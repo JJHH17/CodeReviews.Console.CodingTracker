@@ -80,7 +80,8 @@ namespace CodingTracker.JJHH17
             AnsiConsole.MarkupLine($"[green]New entry added:[/] Start Time: {startTime}, End Time: {endTime}");
             Console.ReadKey();
             var newEntry = new CodingSession(startTime, endTime);
-            Database.AddEntry(startTime, endTime);
+            newEntry.CalculateDuration();
+            Database.AddEntry(startTime, endTime, newEntry.Duration);
 
         }
 
@@ -90,11 +91,12 @@ namespace CodingTracker.JJHH17
             table.AddColumn("[yellow]ID[/]");
             table.AddColumn("[yellow]Start Time[/]");
             table.AddColumn("[yellow]End Time[/]");
+            table.AddColumn("[yellow]Duration[/]");
 
             List<CodingSession> entries = Database.ReturnAllEntries();
             foreach (var entry in entries)
             {
-                table.AddRow(entry.Id.ToString(), entry.StartTime, entry.EndTime);
+                table.AddRow(entry.Id.ToString(), entry.StartTime, entry.EndTime, entry.Duration);
             }
 
             AnsiConsole.Write(table);
