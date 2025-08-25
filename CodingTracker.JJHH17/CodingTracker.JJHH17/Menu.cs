@@ -72,13 +72,14 @@ namespace CodingTracker.JJHH17
         public static void ViewEntries()
         {
             var table = new Table();
+            table.AddColumn("[yellow]ID[/]");
             table.AddColumn("[yellow]Start Time[/]");
             table.AddColumn("[yellow]End Time[/]");
 
             List<CodingSession> entries = Database.ReturnAllEntries();
             foreach (var entry in entries)
             {
-                table.AddRow(entry.StartTime, entry.EndTime);
+                table.AddRow(entry.Id.ToString(), entry.StartTime, entry.EndTime);
             }
 
             AnsiConsole.Write(table);
