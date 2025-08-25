@@ -16,6 +16,7 @@ namespace CodingTracker.JJHH17
             Add,
             ViewAll,
             DeleteAll,
+            DeleteSingleEntry,
             Exit,
         }
 
@@ -48,6 +49,12 @@ namespace CodingTracker.JJHH17
                         AnsiConsole.MarkupLine("[green]You chose to delete all entries[/]");
                         DeleteAllEntries();
                         break;
+
+                    case MenuOptions.DeleteSingleEntry:
+                        AnsiConsole.MarkupLine("[green]You chose to delete a single entry[/]");
+                        DeleteSingleEntry();
+                        break;
+
 
                     case MenuOptions.Exit:
                         AnsiConsole.MarkupLine("[red]Exiting the application. Goodbye![/]");
@@ -100,11 +107,10 @@ namespace CodingTracker.JJHH17
             }
 
             AnsiConsole.Write(table);
-
+            AnsiConsole.MarkupLine("Press any key to continue.");
             Console.ReadKey();
         }
 
-        // Method to delete all items
         public static void DeleteAllEntries()
         {
             string confirmation = AnsiConsole.Ask<string>("[yellow]Are you sure you want to delete all entries? Type [red]DELETE[/] to confirm:[/]").ToLower();
@@ -112,6 +118,28 @@ namespace CodingTracker.JJHH17
             {
                 Database.DeleteAllEntries();
                 AnsiConsole.MarkupLine("[green]All entries have been deleted.[/]");
+                AnsiConsole.MarkupLine("Press any key to return to the menu.");
+                Console.ReadKey();
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[red]Deletion cancelled.[/]");
+                AnsiConsole.MarkupLine("Press any key to return to the menu.");
+                Console.ReadKey();
+            }
+        }
+
+        // Entry to delete a single entry
+        public static void DeleteSingleEntry()
+        {
+            ViewEntries();
+            int idToDelete = AnsiConsole.Ask<int>("Enter the [yellow]ID[/] of the entry you want to delete:");
+            AnsiConsole.MarkupLine($"[red]Are you sure you wish to delete entry {idToDelete}?[/]");
+            string confirmation = AnsiConsole.Ask<string>("Type [red]DELETE[/] to confirm:").ToLower();
+
+            if (confirmation == "delete")
+            {
+                Database.DeleteEntryById(idToDelete);
                 AnsiConsole.MarkupLine("Press any key to return to the menu.");
                 Console.ReadKey();
             }
