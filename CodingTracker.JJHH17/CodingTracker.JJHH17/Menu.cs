@@ -15,6 +15,7 @@ namespace CodingTracker.JJHH17
         {
             Add,
             ViewAll,
+            DeleteAll,
             Exit,
         }
 
@@ -34,13 +35,18 @@ namespace CodingTracker.JJHH17
                 switch (choice)
                 {
                     case MenuOptions.Add:
-                        AnsiConsole.MarkupLine("[green]You chose to add a new entry![/]");
+                        AnsiConsole.MarkupLine("[green]You chose to add a new entry[/]");
                         AddEntry();
                         break;
 
                     case MenuOptions.ViewAll:
-                        AnsiConsole.MarkupLine("[green]You chose to view all entries![/]");
+                        AnsiConsole.MarkupLine("[green]You chose to view all entries[/]");
                         ViewEntries();
+                        break;
+
+                    case MenuOptions.DeleteAll:
+                        AnsiConsole.MarkupLine("[green]You chose to delete all entries[/]");
+                        DeleteAllEntries();
                         break;
 
                     case MenuOptions.Exit:
@@ -51,7 +57,6 @@ namespace CodingTracker.JJHH17
             }
         }
 
-        // Used to prompt user to add entries
         public static void AddEntry()
         {
             string startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30):");
@@ -64,7 +69,6 @@ namespace CodingTracker.JJHH17
 
         }
 
-        // Method to view all entries
         public static void ViewEntries()
         {
             var table = new Table();
@@ -80,6 +84,25 @@ namespace CodingTracker.JJHH17
             AnsiConsole.Write(table);
 
             Console.ReadKey();
+        }
+
+        // Method to delete all items
+        public static void DeleteAllEntries()
+        {
+            string confirmation = AnsiConsole.Ask<string>("[yellow]Are you sure you want to delete all entries? Type [red]DELETE[/] to confirm:[/]").ToLower();
+            if (confirmation == "delete")
+            {
+                Database.DeleteAllEntries();
+                AnsiConsole.MarkupLine("[green]All entries have been deleted.[/]");
+                AnsiConsole.MarkupLine("Press any key to return to the menu.");
+                Console.ReadKey();
+            }
+            else
+            {
+                AnsiConsole.MarkupLine("[red]Deletion cancelled.[/]");
+                AnsiConsole.MarkupLine("Press any key to return to the menu.");
+                Console.ReadKey();
+            }
         }
     }
 }
