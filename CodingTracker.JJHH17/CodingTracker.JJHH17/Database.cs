@@ -87,5 +87,15 @@ namespace CodingTracker.JJHH17
                 var affectedRows = connection.Execute(sql);
             }
         }
+
+        public static void DeleteEntryById(long id)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var sql = $"DELETE FROM {tableName} WHERE Id = @Id;";
+                var affectedRows = connection.Execute(sql, new {Id = id});
+            }
+        }
     }
 }
