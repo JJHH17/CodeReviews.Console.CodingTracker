@@ -33,7 +33,7 @@ namespace CodingTracker.JJHH17
         }
 
         // Calculate duration of session
-        public void CalculateDuration()
+        public void CalculateDuration() // REVISIT at the end 
         {
             DateTime start = DateTime.Parse(StartTime);
             DateTime end = DateTime.Parse(EndTime);
