@@ -14,8 +14,8 @@ namespace CodingTracker.JJHH17
         public string EndTime { get; set; }
         public string Duration { get; set; }
 
-        private DateTime? stopwatchStartTime;
-        private DateTime? stopwatchEndTime;
+        public DateTime? stopwatchStartTime;
+        public DateTime? stopwatchEndTime;
 
         public CodingSession()
         {
