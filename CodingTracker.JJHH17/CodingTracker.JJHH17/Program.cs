@@ -10,7 +10,6 @@ public static class Program
     {
     public static void Main()
     {
-        // Creates database and table if they do not exist
         Database.CreateDatabase();
 
         AnsiConsole.MarkupLine("[yellow]Welcome to Code Tracker![/]");
