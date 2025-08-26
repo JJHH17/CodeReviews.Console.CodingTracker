@@ -14,6 +14,9 @@ namespace CodingTracker.JJHH17
         public string EndTime { get; set; }
         public string Duration { get; set; }
 
+        private DateTime? stopwatchStartTime;
+        private DateTime? stopwatchEndTime;
+
         public CodingSession()
         {
 
@@ -32,7 +35,6 @@ namespace CodingTracker.JJHH17
             this.Duration = duration;
         }
 
-        // Calculate duration of session
         public void CalculateDuration() 
         {
             DateTime start = DateTime.Parse(StartTime);
@@ -63,7 +65,33 @@ namespace CodingTracker.JJHH17
             int minutes = timeSpan.Minutes;
             int seconds = timeSpan.Seconds;
 
-            this.Duration = $"{years} years, {months} months, {days} days, {hours} hours, {minutes} minutes, {seconds} seconds"; // ONLY PRINTS INT FOR SOME REASON
+            this.Duration = $"{years} years, {months} months, {days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
+        }
+
+        public void StartStopwatch()
+        {
+            stopwatchStartTime = DateTime.Now;
+            Console.WriteLine($"Stopwatch started at {stopwatchStartTime}");
+        }
+
+        public void StopStopwatch()
+        {
+            if (stopwatchStartTime == null)
+            {
+                Console.WriteLine("Stopwatch has not been started.");
+                return;
+            }
+
+            stopwatchEndTime = DateTime.Now;
+            Console.WriteLine($"Stopwatch stopped at {stopwatchEndTime}");
+
+            StartTime = stopwatchStartTime.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            EndTime = stopwatchEndTime.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
+            CalculateDuration();
+
+            stopwatchStartTime = null;
+            stopwatchEndTime = null;
         }
     }
 }
