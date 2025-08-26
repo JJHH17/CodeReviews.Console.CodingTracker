@@ -163,7 +163,12 @@ namespace CodingTracker.JJHH17
             AnsiConsole.MarkupLine("Press [red]Enter[/] to stop the stopwatch.");
             while (true)
             {
-                System.Threading.Thread.Sleep(1000); // This timer updates every second
+                Console.SetCursorPosition(0, Console.CursorTop);
+
+                TimeSpan elapsed = DateTime.Now - session.stopwatchStartTime.Value;
+                AnsiConsole.Markup($"Elapsed Time: [yellow]{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}[/]");
+
+                System.Threading.Thread.Sleep(1000); // This refreshes every second (1000 milliseconds)
                 if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
                 {
                     break;
