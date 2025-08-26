@@ -89,7 +89,6 @@ namespace CodingTracker.JJHH17
             var newEntry = new CodingSession(startTime, endTime);
             newEntry.CalculateDuration();
             Database.AddEntry(startTime, endTime, newEntry.Duration);
-
         }
 
         public static void ViewEntries()
@@ -103,6 +102,7 @@ namespace CodingTracker.JJHH17
             List<CodingSession> entries = Database.ReturnAllEntries();
             foreach (var entry in entries)
             {
+                entry.CalculateDuration();
                 table.AddRow(entry.Id.ToString(), entry.StartTime, entry.EndTime, entry.Duration);
             }
 
