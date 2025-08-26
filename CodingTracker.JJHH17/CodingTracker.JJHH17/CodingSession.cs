@@ -45,7 +45,8 @@ namespace CodingTracker.JJHH17
             if (days < 0)
             {
                 months--;
-                days += DateTime.DaysInMonth(start.Year, start.Month);
+                var previousMonth = end.AddMonths(-1);
+                days += DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month);
             }
 
             if (months < 0)
@@ -55,11 +56,14 @@ namespace CodingTracker.JJHH17
             }
 
             TimeSpan timeSpan = end - start;
-            int hours = timeSpan.Hours;
+
+            int totalDays = (int)timeSpan.TotalDays;
+            int totalHours = (int)timeSpan.TotalHours;
+            int hours = (int)(timeSpan.TotalHours % 24);
             int minutes = timeSpan.Minutes;
             int seconds = timeSpan.Seconds;
 
-            Duration = $"{years} years, {months} months, {days} days, {hours} hours, {minutes} minutes, {seconds} seconds";
+            this.Duration = $"{years} years, {months} months, {days} days, {hours} hours, {minutes} minutes, {seconds} seconds"; // ONLY PRINTS INT FOR SOME REASON
         }
     }
 }
