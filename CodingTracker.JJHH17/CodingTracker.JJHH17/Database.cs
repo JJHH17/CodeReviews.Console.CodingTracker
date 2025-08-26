@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Configuration;
 using System.Data.SQLite;
-
+using System.Text.RegularExpressions;
 
 // TODO - Add Dapper installation to README
 // TODO - Add SQLITE installation to README
@@ -28,17 +28,15 @@ namespace CodingTracker.JJHH17
                 Console.WriteLine("Database already exists.");
             }
 
-            CreateTable(); // table is created after database is created
+            CreateTable(); 
         }
 
-        // Creates a table in the database (pulled from config file)
         private static void CreateTable()
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
 
-                // Creating table via Dapper
                 string tableCreation = @"CREATE TABLE IF NOT EXISTS CodeTracker (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT, 
                     StartTime TEXT NOT NULL,
@@ -59,11 +57,12 @@ namespace CodingTracker.JJHH17
                     $"SELECT last_insert_rowid();";
 
                 var newEntry = new CodingSession(startTime, endTime, duration);
+
                 long newId = connection.ExecuteScalar<long>(sql, new
                 {
-                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime, newEntry.Duration});
+                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime, Duration = newEntry.Duration});
 
-                return newId; // This is used to return the entry ID (for deletion method if needed)
+                return newId;
             }
         }
 
