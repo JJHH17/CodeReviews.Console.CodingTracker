@@ -13,7 +13,8 @@ namespace CodingTracker.JJHH17
 
         enum MenuOptions
         {
-            Add,
+            AddEventManually,
+            AddEventViaStopWatch,
             ViewAll,
             DeleteAll,
             DeleteSingleEntry,
@@ -35,7 +36,7 @@ namespace CodingTracker.JJHH17
 
                 switch (choice)
                 {
-                    case MenuOptions.Add:
+                    case MenuOptions.AddEventManually:
                         AnsiConsole.MarkupLine("[green]You chose to add a new entry[/]");
                         AddEntry();
                         break;
@@ -55,6 +56,10 @@ namespace CodingTracker.JJHH17
                         DeleteSingleEntry();
                         break;
 
+                    case MenuOptions.AddEventViaStopWatch:
+                        AnsiConsole.MarkupLine("[green]You chose to use the stopwatch feature[/]");
+                        AddEntryByStopwatch();
+                        break;
 
                     case MenuOptions.Exit:
                         AnsiConsole.MarkupLine("[red]Exiting the application. Goodbye![/]");
@@ -129,7 +134,6 @@ namespace CodingTracker.JJHH17
             }
         }
 
-        // Entry to delete a single entry
         public static void DeleteSingleEntry()
         {
             ViewEntries();
@@ -149,6 +153,26 @@ namespace CodingTracker.JJHH17
                 AnsiConsole.MarkupLine("Press any key to return to the menu.");
                 Console.ReadKey();
             }
+        }
+
+        public static void AddEntryByStopwatch()
+        {
+            var session = new CodingSession();
+            session.StartStopwatch();
+            AnsiConsole.MarkupLine("[green]Stopwatch started![/]");
+            AnsiConsole.MarkupLine("Press [red]Enter[/] to stop the stopwatch.");
+            while (true)
+            {
+                System.Threading.Thread.Sleep(1000); // This timer updates every second
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+            }
+            session.StopStopwatch();
+            session.CalculateDuration();
+            Database.AddEntry(session.StartTime, session.EndTime, session.Duration);
+            Console.ReadKey();
         }
     }
 }
