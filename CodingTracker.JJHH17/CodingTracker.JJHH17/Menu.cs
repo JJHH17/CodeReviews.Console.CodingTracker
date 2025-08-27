@@ -27,7 +27,7 @@ namespace CodingTracker.JJHH17
 
             while (active)
             {
-                Console.Clear(); // Clears the console when menu is shown 
+                Console.Clear(); 
 
                 var choice = AnsiConsole.Prompt(
                     new SelectionPrompt<MenuOptions>()
@@ -72,7 +72,7 @@ namespace CodingTracker.JJHH17
         public static void AddEntry()
         {
             string startTime = AnsiConsole.Ask<string>("Enter the [yellow]start time[/] (e.g., 2023-10-01 14:30 (time is optional)):");
-            // Parsing to DateTime to ensure correct format (end time must be after start time)
+
             DateTime parsedStartTime;
             while (!DateTime.TryParse(startTime, out parsedStartTime))
             {
