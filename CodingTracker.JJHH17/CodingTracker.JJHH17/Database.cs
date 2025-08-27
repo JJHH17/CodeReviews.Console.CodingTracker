@@ -11,11 +11,10 @@ namespace CodingTracker.JJHH17
 {
     public class Database
     {
-        // Imports database from config file
+        // These values are read from App.config
         private static readonly string dbPath = ConfigurationManager.AppSettings["databasePath"];
         private static readonly string tableName = ConfigurationManager.AppSettings["tableName"];
         private static readonly string connectionString = $"Data Source={dbPath};";
-
 
         public static void CreateDatabase()
         {
@@ -28,7 +27,7 @@ namespace CodingTracker.JJHH17
                 Console.WriteLine("Database already exists.");
             }
 
-            CreateTable(); 
+            CreateTable();
         }
 
         private static void CreateTable()
@@ -60,7 +59,7 @@ namespace CodingTracker.JJHH17
 
                 long newId = connection.ExecuteScalar<long>(sql, new
                 {
-                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime, Duration = newEntry.Duration});
+                    StartTime = newEntry.StartTime, EndTime = newEntry.EndTime, Duration = newEntry.Duration });
 
                 return newId;
             }
@@ -93,7 +92,7 @@ namespace CodingTracker.JJHH17
             {
                 connection.Open();
                 var sql = $"DELETE FROM {tableName} WHERE Id = @Id;";
-                var affectedRows = connection.Execute(sql, new {Id = id});
+                var affectedRows = connection.Execute(sql, new { Id = id });
             }
         }
     }
