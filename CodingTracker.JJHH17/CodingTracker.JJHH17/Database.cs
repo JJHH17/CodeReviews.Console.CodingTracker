@@ -3,10 +3,7 @@ using System;
 using System.IO;
 using System.Configuration;
 using System.Data.SQLite;
-using System.Text.RegularExpressions;
 
-// TODO - Add Dapper installation to README
-// TODO - Add SQLITE installation to README
 namespace CodingTracker.JJHH17
 {
     public class Database
